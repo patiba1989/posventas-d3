@@ -2,25 +2,50 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #333333;
+
+  /* Colores Grupo Daer */
+  --daer-primary: #434E72;
+  --daer-primary-hover: #363f5c;
+  --daer-accent: #82c0c7;
+  --daer-text: #666666;
+  --daer-heading: #333333;
+  --daer-border: #bbb;
+  --daer-border-light: #ddd;
+  --daer-success: #28a745;
+  --daer-error: #dc3545;
+  --daer-warning: #ffc107;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-open-sans), Arial, sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Colores personalizados Daer */
+  --color-daer-primary: var(--daer-primary);
+  --color-daer-primary-hover: var(--daer-primary-hover);
+  --color-daer-accent: var(--daer-accent);
+  --color-daer-text: var(--daer-text);
+  --color-daer-heading: var(--daer-heading);
+  --color-daer-border: var(--daer-border);
+  --color-daer-border-light: var(--daer-border-light);
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--daer-text);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Estilos base de inputs Grupo Daer */
+input, select, textarea {
+  font-family: inherit;
+}
+
+/* Focus styles personalizados */
+input:focus, select:focus, textarea:focus {
+  border-color: var(--daer-primary) !important;
+  box-shadow: 0 0 0 2px rgba(67, 78, 114, 0.2);
 }
