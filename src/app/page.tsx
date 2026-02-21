@@ -1,4 +1,5 @@
 import { WizardContainer } from "@/components/posventa"
+import { Header } from "@/components/ui/Header"
 import Image from "next/image"
 
 export default function HomePage() {
@@ -8,7 +9,7 @@ export default function HomePage() {
       <div className="hidden lg:block relative">
         <div className="fixed top-0 left-0 w-1/2 h-screen">
           <Image
-            src="https://grupodaer.com/wp-content/uploads/2022/02/daer-home.jpg"
+            src="/imagen_fondo.jpg"
             alt="Grupo Daer"
             fill
             className="object-cover"
@@ -34,23 +35,16 @@ export default function HomePage() {
 
       {/* Panel derecho - Formulario */}
       <div className="min-h-screen bg-[#f5f5f5]">
-        {/* Header móvil */}
-        <header className="lg:hidden bg-[#434E72] py-4 shadow-md">
-          <div className="px-4 flex items-center justify-center">
-            <h1 className="text-xl font-semibold text-white tracking-wide">
-              Grupo Daer
-            </h1>
-          </div>
-        </header>
+        <Header />
 
         <div className="py-6 px-4 md:px-6 lg:px-8 xl:px-10">
-          {/* Encabezado del formulario */}
+          {/* Descripción del formulario */}
           <div className="mb-6">
-            <h2 className="text-2xl md:text-3xl font-semibold text-[#333]">
-              Solicitud de Posventa
-            </h2>
-            <p className="text-[#666] mt-2">
+            <p className="text-[#666]">
               Complete el formulario para registrar su solicitud de servicio
+            </p>
+            <p className="text-sm text-[#888] mt-1 italic">
+              Por favor, lea el manual del propietario antes de realizar una solicitud de posventa.
             </p>
           </div>
 

@@ -2,6 +2,7 @@
 
 import type { usePosventaWizard } from "@/hooks/usePosventaWizard"
 import { cn } from "@/lib/utils"
+import { SearchableSelect } from "@/components/ui/SearchableSelect"
 
 interface Paso2InmuebleProps {
   wizard: ReturnType<typeof usePosventaWizard>
@@ -75,55 +76,28 @@ export function Paso2Inmueble({ wizard }: Paso2InmuebleProps) {
           <label htmlFor="macroproyecto" className={labelStyles}>
             Macroproyecto <span className="text-[#434E72]">*</span>
           </label>
-          <select
-            id="macroproyecto"
-            value={inmueble.idMacroproyecto ?? ""}
-            onChange={(e) =>
-              handleMacroproyectoChange(
-                e.target.value ? Number(e.target.value) : null
-              )
-            }
+          <SearchableSelect
+            options={macrosUnicos.map((m) => ({ id: m.id, nombre: m.nombre }))}
+            value={inmueble.idMacroproyecto}
+            onChange={(val) => handleMacroproyectoChange(val as number | null)}
+            placeholder="Buscar macroproyecto..."
             disabled={isLoadingMacroproyectos}
-            className={inputStyles}
-          >
-            <option value="">
-              {isLoadingMacroproyectos
-                ? "Cargando..."
-                : "Seleccione un macroproyecto"}
-            </option>
-            {macrosUnicos.map((m) => (
-              <option key={m.id} value={m.id}>
-                {m.nombre}
-              </option>
-            ))}
-          </select>
+            isLoading={isLoadingMacroproyectos}
+          />
         </div>
 
         {/* Proyecto */}
         <div>
           <label htmlFor="proyecto" className={labelStyles}>
-            Proyecto <span className="text-[#434E72]">*</span>
+            Etapa <span className="text-[#434E72]">*</span>
           </label>
-          <select
-            id="proyecto"
-            value={inmueble.idProyecto ?? ""}
-            onChange={(e) =>
-              handleProyectoChange(e.target.value ? Number(e.target.value) : null)
-            }
+          <SearchableSelect
+            options={proyectos.map((p) => ({ id: p.idProyecto, nombre: p.nombre }))}
+            value={inmueble.idProyecto}
+            onChange={(val) => handleProyectoChange(val as number | null)}
+            placeholder={!inmueble.idMacroproyecto ? "Primero seleccione macroproyecto" : "Buscar etapa..."}
             disabled={!inmueble.idMacroproyecto}
-            className={inputStyles}
-          >
-            <option value="">
-              {!inmueble.idMacroproyecto
-                ? "Primero seleccione un macroproyecto"
-                : "Seleccione un proyecto"}
-            </option>
-            {proyectos.map((p) => (
-              <option key={p.idProyecto} value={p.idProyecto}>
-                {p.nombre}
-              </option>
-            ))}
-          </select>
+          />
         </div>
 
         {/* Inmueble */}
@@ -131,30 +105,18 @@ export function Paso2Inmueble({ wizard }: Paso2InmuebleProps) {
           <label htmlFor="inmueble" className={labelStyles}>
             Inmueble <span className="text-[#434E72]">*</span>
           </label>
-          <select
-            id="inmueble"
-            value={inmueble.idInmueble ?? ""}
-            onChange={(e) =>
-              handleInmuebleChange(e.target.value ? Number(e.target.value) : null)
+          <SearchableSelect
+            options={inmuebles.map((i) => ({ id: i.id, nombre: i.nombre }))}
+            value={inmueble.idInmueble}
+            onChange={(val) => handleInmuebleChange(val as number | null)}
+            placeholder={
+              isLoadingInmuebles ? "Cargando..." :
+              !inmueble.idProyecto ? "Primero seleccione etapa" :
+              "Buscar inmueble..."
             }
             disabled={!inmueble.idProyecto || isLoadingInmuebles}
-            className={inputStyles}
-          >
-            <option value="">
-              {isLoadingInmuebles
-                ? "Cargando inmuebles..."
-                : !inmueble.idProyecto
-                  ? "Primero seleccione un proyecto"
-                  : inmuebles.length === 0
-                    ? "No hay inmuebles vendidos"
-                    : "Seleccione un inmueble"}
-            </option>
-            {inmuebles.map((i) => (
-              <option key={i.id} value={i.id}>
-                {i.nombre}
-              </option>
-            ))}
-          </select>
+            isLoading={isLoadingInmuebles}
+          />
         </div>
       </div>
 
@@ -190,25 +152,7 @@ export function Paso2Inmueble({ wizard }: Paso2InmuebleProps) {
               <span>Cargando informacion...</span>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-xs font-medium text-[#666] mb-1">
-                  Fecha de Entrega
-                </label>
-                <input
-                  type="text"
-                  value={
-                    inmueble.fechaEntrega
-                      ? new Date(inmueble.fechaEntrega).toLocaleDateString(
-                          "es-CO"
-                        )
-                      : "Sin fecha de entrega"
-                  }
-                  readOnly
-                  className="w-full rounded border border-[#ddd] bg-white px-3 py-2 text-sm text-[#333]"
-                />
-              </div>
-
+            <div className="space-y-4">
               <div>
                 <label className="block text-xs font-medium text-[#666] mb-1">
                   Propietario
@@ -223,11 +167,17 @@ export function Paso2Inmueble({ wizard }: Paso2InmuebleProps) {
 
               <div>
                 <label className="block text-xs font-medium text-[#666] mb-1">
-                  Numero de Inmueble
+                  Fecha de Entrega
                 </label>
                 <input
                   type="text"
-                  value={inmueble.numeroInmueble || "Sin informacion"}
+                  value={
+                    inmueble.fechaEntrega
+                      ? new Date(inmueble.fechaEntrega).toLocaleDateString(
+                          "es-CO"
+                        )
+                      : "Sin fecha de entrega"
+                  }
                   readOnly
                   className="w-full rounded border border-[#ddd] bg-white px-3 py-2 text-sm text-[#333]"
                 />

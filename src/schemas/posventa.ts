@@ -6,7 +6,10 @@ export const solicitanteSchema = z.object({
   tipoDocumento: z.string().min(1, "Seleccione un tipo de documento"),
   numeroDocumento: z.string().min(5, "El documento debe tener al menos 5 caracteres"),
   celular: z.string().min(7, "El celular debe tener al menos 7 digitos"),
-  telefono: z.string().min(7, "El telefono debe tener al menos 7 digitos"),
+  telefono: z.union([
+    z.string().min(7, "El telefono debe tener al menos 7 digitos"),
+    z.literal("")
+  ]),
   email: z.string().email("Ingrese un email valido"),
 })
 

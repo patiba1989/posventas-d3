@@ -119,7 +119,7 @@ export function Paso1Solicitante({ wizard }: Paso1SolicitanteProps) {
 
         <div>
           <label htmlFor="telefono" className={labelStyles}>
-            Telefono Fijo <span className="text-[#434E72]">*</span>
+            Teléfono Fijo <span className="text-[#666] text-xs">(opcional)</span>
           </label>
           <input
             type="tel"

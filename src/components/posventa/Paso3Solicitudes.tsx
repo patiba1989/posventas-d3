@@ -71,6 +71,11 @@ export function Paso3Solicitudes({ wizard }: Paso3SolicitudesProps) {
         </button>
       </div>
 
+      <p className="text-xs text-[#888] italic leading-relaxed text-justify">
+        Disclaimer: En caso de no ser propietario, debe adjuntar la autorización debidamente firmada
+        para proceder y tener en cuenta su solicitud. Declaro que la información suministrada es veraz.
+      </p>
+
       <div className="space-y-4">
         {solicitudes.map((solicitud, index) => {
           const locativasHijo = getLocativasHijo(solicitud.locativaPadre)
