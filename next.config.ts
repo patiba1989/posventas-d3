@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  basePath: "/posventas-d3",
   images: {
     remotePatterns: [
       {

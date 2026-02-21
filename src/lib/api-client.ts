@@ -8,9 +8,11 @@ import type {
   NuevaSolicitudRequest,
 } from "@/types/posventa"
 
+const BASE_PATH = "/posventas-d3"
+
 // Cliente que usa las rutas internas de Next.js (el token se maneja en el servidor)
 async function apiFetch<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const response = await fetch(endpoint, {
+  const response = await fetch(`${BASE_PATH}${endpoint}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -30,7 +32,7 @@ async function apiFetch<T>(endpoint: string, options: RequestInit = {}): Promise
 // Inicializar autenticación (llamar una vez al cargar la app)
 export async function iniciarSesion(): Promise<boolean> {
   try {
-    const response = await fetch("/api/auth", {
+    const response = await fetch(`${BASE_PATH}/api/auth`, {
       method: "POST",
       credentials: "include",
     })
