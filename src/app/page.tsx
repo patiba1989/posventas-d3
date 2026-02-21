@@ -1,6 +1,7 @@
 import { WizardContainer } from "@/components/posventa"
 import { Header } from "@/components/ui/Header"
 import Image from "next/image"
+import imagenFondo from "../../public/imagen_fondo.jpg"
 
 export default function HomePage() {
   return (
@@ -9,7 +10,7 @@ export default function HomePage() {
       <div className="hidden lg:block relative">
         <div className="fixed top-0 left-0 w-1/2 h-screen">
           <Image
-            src="/imagen_fondo.jpg"
+            src={imagenFondo}
             alt="Grupo Daer"
             fill
             className="object-cover"
